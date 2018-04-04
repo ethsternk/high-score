@@ -6,16 +6,6 @@ var scores = [{
     score: 39
 }];
 
-function compareScores(a, b) {
-    let comparison = 0;
-    if (a.score > b.score) {
-        comparison = -1;
-    } else if (a.score < b.score) {
-        comparison = 1;
-    }
-    return comparison;
-}
-
 // server stuff
 
 const jsonBody = require("body/json");
@@ -31,7 +21,7 @@ const server = http.createServer((req, res) => {
         } else {
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/javascript');
-            scores.sort(compareScores);
+            scores.sort((a, b) => (b.score - a.score));
             top3Scores = scores.slice(0, 3);
             body = JSON.stringify(top3Scores);
         }
